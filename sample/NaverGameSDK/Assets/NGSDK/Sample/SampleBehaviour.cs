@@ -7,16 +7,13 @@ using System.IO;
 public class SampleBehaviour : MonoBehaviour {
 
     [Header("NAVER GAME Lounge ID")]
-	// public string LoungeId = "TEST";
-	public string LoungeId = "League_of_Legends";
+    public string LoungeId = "naver_game_4developer";
 
 	[Header("NAVER GAME ClientId")]
-	// public string NaverLoginClientId = "197CymaStozo7X5r2qR5";
-	public string NaverLoginClientId = "6heF5G8dkbmv545M2ccR";
+	public string NaverLoginClientId = "UKvNABLDsyEJusJGsXL2";
 	
 	[Header("NAVER GAME ClientSecret")]
-	// public string NaverLoginClientSecret = "evCgKH1kJL";
-	public string NaverLoginClientSecret = "OuLD_GynxF";
+	public string NaverLoginClientSecret = "rK4suc_Qd0";
 	
     void Start()
     {

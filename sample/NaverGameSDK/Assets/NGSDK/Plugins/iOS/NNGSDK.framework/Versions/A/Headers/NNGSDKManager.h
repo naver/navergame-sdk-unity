@@ -1,7 +1,9 @@
+// NAVER Game SDK for iOS
+// Copyright 2021-present NAVER Corp.
+//
+// Unauthorized use, modification and redistribution of this software are strongly prohibited.
 //
 // Created by Alan on 2021/02/25.
-// Copyright (c) 2021 Naver. All rights reserved.
-//
 
 
 #import <Foundation/Foundation.h>

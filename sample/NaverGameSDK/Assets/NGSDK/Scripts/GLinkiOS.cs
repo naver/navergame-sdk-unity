@@ -77,4 +77,32 @@ public class GLinkiOS : MonoBehaviour, IGLink
         #endif
     }
 
+    public void unloadSdk()
+    {
+#if UNITY_IPHONE
+	    throw new NotImplementedException();
+#endif
+    }
+
+    public void executeArticleList(int articleListId)
+    {
+#if UNITY_IPHONE
+	    throw new NotImplementedException();
+#endif
+    }
+
+    public void executeArticleByFeedId(long feedId)
+    {
+#if UNITY_IPHONE
+	    throw new NotImplementedException();
+#endif
+    }
+
+    public string getSdkVersion()
+    {
+#if UNITY_IPHONE
+	    throw new NotImplementedException();
+#endif
+	    return "";
+    }
 }

@@ -17,60 +17,41 @@ public class GLinkAndroid : IGLink {
 	#if UNITY_ANDROID
 	AndroidJavaClass glinkClass = null;
 	AndroidJavaObject currentActivity = null;
+	
+	class OnSdkLoadListener : AndroidJavaProxy {
+		public OnSdkLoadListener () : base("com.navercorp.nng.android.sdk.NNGCallbackListener") { /* empty. */ }
 
-	class OnClickAppSchemeBannerListener : AndroidJavaProxy {
-		public OnClickAppSchemeBannerListener () : base("com.naver.glink.android.sdk.Glink$OnClickAppSchemeBannerListener") { /* empty. */ }
-
-		void onClickAppSchemeBanner (string appScheme) {
-			showToast ("tapped:" + appScheme);
+		public void onSdkDidLoaded() {
+		    GLinkDelegate._callSdkOpened();
 		}
-	}
+        public void onSdkDidUnloaded(){
+            GLinkDelegate._callSdkClosed();
+        }
+        public void onExecuteMenuEvent(string moveTo) {
+            GLinkDelegate._callSdkScheme(moveTo);
+        }
 
-	class OnSdkStartedListener : AndroidJavaProxy {
-		public OnSdkStartedListener () : base("com.naver.glink.android.sdk.Glink$OnSdkStartedListener") { /* empty. */ }
-
-		void onSdkStarted () {
-			showToast ("sdk start.");
-		}
-	}
-
-	class OnSdkStoppedListener : AndroidJavaProxy {
-		public OnSdkStoppedListener () : base("com.naver.glink.android.sdk.Glink$OnSdkStoppedListener") { /* empty. */ }
-
-		void onSdkStopped () {
-			showToast ("sdk stop.");
-		}
 	}
 
 
-	static void showToast(string message) {
-        //var activity = new AndroidJavaClass("com.unity3d.player.UnityPlayer").GetStatic<AndroidJavaObject>("currentActivity");
-        //activity.Call("runOnUiThread", new AndroidJavaRunnable(() =>
-        //{
-        //    AndroidJavaObject toast = new AndroidJavaClass("android.widget.Toast").CallStatic<AndroidJavaObject>("makeText", activity, message, 1);
-        //    toast.Call("show");
-        //}));
-    }
 	#endif
 
 	public GLinkAndroid () {
 		#if UNITY_ANDROID
 		currentActivity = new AndroidJavaClass ("com.unity3d.player.UnityPlayer").GetStatic<AndroidJavaObject> ("currentActivity");
 		glinkClass = new AndroidJavaClass ("com.navercorp.nng.android.sdk.NNGLink");
-
-        // Move to /Assets/NCSDK/Sample/SampleBehaviour.cs 
-        //glinkClass.CallStatic("init", currentActivity, GLinkConfig.NaverLoginClientId, GLinkConfig.NaverLoginClientSecret, GLinkConfig.LoungeId);
-
-        // 앱스킴 listener 사용 하려면 아래 주석을 풀어 주세요.
-        // glinkClass.CallStatic ("setOnClickAppSchemeBannerListener", new OnClickAppSchemeBannerListener ());
-
-        // sdk start listener 사용 하려면 아래 주석을 풀어 주세요.
-        // glinkClass.CallStatic ("setOnSdkStartedListener", new OnSdkStartedListener ());
-
-        // sdk stop listener 사용 하려면 아래 주석을 풀어 주세요.
-        // glinkClass.CallStatic ("setOnSdkStoppedListener", new OnSdkStoppedListener ());
+		
+        glinkClass.CallStatic ("setSdkLoadListener", new OnSdkLoadListener ());
 
  		#endif
+	}
+	
+	public string getSdkVersion()
+	{
+#if UNITY_ANDROID
+		return glinkClass.CallStatic<string>("getSdkVersionName");
+#endif
+		return null;
 	}
 
 	public void executeHomeBanner() {
@@ -87,10 +68,32 @@ public class GLinkAndroid : IGLink {
 		#endif
 	}
 
-    public void init(string loungeId, string clientId, string clientSecret)
+	public void executeArticleList(int menuId)
+	{
+#if UNITY_ANDROID
+        glinkClass.CallStatic("startArticleList",currentActivity,menuId);
+#endif
+    }
+
+	public void executeArticleByFeedId(long feedId)
+	{
+#if UNITY_ANDROID
+		glinkClass.CallStatic("startArticle",currentActivity,feedId);
+#endif
+	}
+
+	public void init(string loungeId, string clientId, string clientSecret)
     {
         #if UNITY_ANDROID
 	    glinkClass.CallStatic("initModule",currentActivity,loungeId,clientId,clientSecret);
         #endif
     }
+
+	public void unloadSdk()
+	{
+#if UNITY_ANDROID
+		glinkClass.CallStatic("unloadSdk");
+#endif
+	}
+
 }

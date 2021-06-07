@@ -6,21 +6,26 @@
 // Created by Alan on 2021/03/11.
 
 
+// Naver Game SDK Bridge Code for Unity
+
+
 #import <UIKit/UIKit.h>
 #import "UnityAppController.h"
 #import <NNGSDK/NNGSDKManager.h>
 
 
-typedef void (*GLSDKDidLoadDelegate)();
-typedef void (*GLSDKDidUnloadDelegate)();
+typedef void (*NGSDKDidLoadDelegate)();
+typedef void (*NGSDKDidUnloadDelegate)();
+typedef void (*NGSDKDidReceiveInGameMenuCodeDelegate)(const char *inGameMenuCode);
 
 
 @interface GLinkViewController : UIViewController <NNGSDKDelegate>
 
 @property (nonatomic, strong) UIViewController *mainViewcontroller;
 
-@property (nonatomic, assign) GLSDKDidLoadDelegate glSDKDidLoadDelegate;
-@property (nonatomic, assign) GLSDKDidUnloadDelegate glSDKDidUnloadDelegate;
+@property (nonatomic, assign) NGSDKDidLoadDelegate ngSDKDidLoadDelegate;
+@property (nonatomic, assign) NGSDKDidUnloadDelegate ngSDKDidUnloadDelegate;
+@property (nonatomic, assign) NGSDKDidReceiveInGameMenuCodeDelegate ngSDKDidReceiveInGameMenuCodeDelegate;
 
 @end
 
@@ -31,7 +36,20 @@ typedef void (*GLSDKDidUnloadDelegate)();
 - (void)setGLRootViewController {
     _mainViewcontroller = UnityGetGLViewController();
     [NNGSDKManager.shared setParentViewController:_mainViewcontroller];
-    [NNGSDKManager.shared setDelegate:self];
+    NNGSDKManager.shared.delegate = self;
+}
+
+
+// Set client ID, client secret, and lounge ID for SDK
+- (void)setClientId:(NSString *)clientId clientSecret:(NSString *)cs loungeId:(NSString *)loungeId {
+    [NNGSDKManager.shared setClientId:clientId clientSecret:cs loungeId:loungeId];
+    [self setGLRootViewController];
+}
+
+
+// The version of the SDK.
+- (NSString *)getSdkVersion {
+    return NNGSDKManager.shared.version;
 }
 
 
@@ -49,9 +67,23 @@ typedef void (*GLSDKDidUnloadDelegate)();
 }
 
 
-// Set client ID, client secret, and lounge ID for SDK
-- (void)setClientId:(NSString *)clientId clientSecret:(NSString *)cs loungeId:(NSString *)loungeId {
-    [NNGSDKManager.shared setClientId:clientId clientSecret:cs loungeId:loungeId];
+// Present the list of feeds identified by a predefined board ID which represents a board.
+- (void)executeBoard:(int)boardId {
+    [self setGLRootViewController];
+    [NNGSDKManager.shared presentBoardViewControllerWith:@(boardId)];
+}
+
+
+// Present the feed identified by a feed ID.
+- (void)executeFeed:(long)feedId {
+    [self setGLRootViewController];
+    [NNGSDKManager.shared presentFeedViewControllerWith:@(feedId)];
+}
+
+
+// Dismiss all SDK-related views.
+- (void)terminateSdk {
+    [NNGSDKManager.shared dismiss];
 }
 
 
@@ -59,16 +91,24 @@ typedef void (*GLSDKDidUnloadDelegate)();
 
 // Implementation for the delegate method -nngSDKViewDidLoad.
 - (void)nngSDKViewDidLoad {
-    if (self.glSDKDidLoadDelegate) {
-        self.glSDKDidLoadDelegate();
+    if (self.ngSDKDidLoadDelegate) {
+        self.ngSDKDidLoadDelegate();
     }
 }
 
 
 // Implementation for the delegate method -nngSDKViewDidUnload.
 - (void)nngSDKViewDidUnload {
-    if (self.glSDKDidUnloadDelegate) {
-        self.glSDKDidUnloadDelegate();
+    if (self.ngSDKDidUnloadDelegate) {
+        self.ngSDKDidUnloadDelegate();
+    }
+}
+
+
+// Implementation for the delegate method -nngSDKDidReceiveInGameMenuCode:.
+- (void)nngSDKDidReceiveInGameMenuCode:(NSString *)inGameMenuCode {
+    if (self.ngSDKDidReceiveInGameMenuCodeDelegate) {
+        self.ngSDKDidReceiveInGameMenuCodeDelegate(inGameMenuCode.UTF8String);
     }
 }
 
@@ -89,7 +129,7 @@ NSString* NNGSDKCreateNSString (const char* string) {
 // C style interfaces for the upper codes.
 extern "C" {
 
-    char* NNGSDKCreateNSStrintToChar (const char* string) {
+    char* NNGSDKCreateNSStringToChar (const char* string) {
         if (string == NULL)
             return NULL;
         char* res = (char*) malloc (strlen(string) + 1 );
@@ -105,6 +145,10 @@ extern "C" {
                loungeId:NNGSDKCreateNSString(loungeId)];
     }
 
+    const char* _GetSdkVersion() {
+        return NNGSDKCreateNSStringToChar([vc getSdkVersion].UTF8String);
+    }
+
     void _ExecuteHomeBanner() {
         [vc executeHomeBanner];
     }
@@ -113,12 +157,28 @@ extern "C" {
         [vc executeSorryBanner];
     }
 
-    void _SetSDKDidLoadDelegate(GLSDKDidLoadDelegate glSDKDidLoadDelegate) {
-        vc.glSDKDidLoadDelegate = glSDKDidLoadDelegate;
+    void _ExecuteBoard(int boardId) {
+        [vc executeBoard:boardId];
     }
 
-    void _SetSDKDidUnloadDelegate(GLSDKDidUnloadDelegate glSDKDidUnloadDelegate) {
-        vc.glSDKDidUnloadDelegate = glSDKDidUnloadDelegate;
+    void _ExecuteFeed(long feedId) {
+        [vc executeFeed:feedId];
+    }
+
+    void _TerminateSdk() {
+        [vc terminateSdk];
+    }
+
+    void _SetSDKDidLoadDelegate(NGSDKDidLoadDelegate ngSDKDidLoadDelegate) {
+        vc.ngSDKDidLoadDelegate = ngSDKDidLoadDelegate;
+    }
+
+    void _SetSDKDidUnloadDelegate(NGSDKDidUnloadDelegate ngSDKDidUnloadDelegate) {
+        vc.ngSDKDidUnloadDelegate = ngSDKDidUnloadDelegate;
+    }
+
+    void _SetSDKDidReceiveInGameMenuCodeDelegate(NGSDKDidReceiveInGameMenuCodeDelegate ngSDKDidReceiveInGameMenuCodeDelegate) {
+        vc.ngSDKDidReceiveInGameMenuCodeDelegate = ngSDKDidReceiveInGameMenuCodeDelegate;
     }
 
 }

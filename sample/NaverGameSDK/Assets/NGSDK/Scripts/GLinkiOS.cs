@@ -19,32 +19,53 @@ public class GLinkiOS : MonoBehaviour, IGLink
 {
 	#if UNITY_IPHONE
 	[DllImport("__Internal")]
-	public static extern void _InitGLink(string consumerKey, string consumerSecret, string loungeId);
+	public static extern void _InitGLink(string clientId, string clientSecret, string loungeId);
+
+	[DllImport("__Internal")]
+	public static extern void _TerminateSdk();
 	
 	[DllImport("__Internal")]
 	public static extern void _ExecuteHomeBanner();
 
 	[DllImport("__Internal")]
 	public static extern void _ExecuteSorryBanner();
+
+	[DllImport("__Internal")]
+	public static extern void _ExecuteBoard(int boardId);
+
+	[DllImport("__Internal")]
+	public static extern void _ExecuteFeed(long feedId);
+
+	[DllImport("__Internal")]
+	public static extern string _GetSdkVersion();
 	
 	[DllImport("__Internal")]
 	private static extern void _SetSDKDidLoadDelegate(NGSDKDidLoadDelegate callback);
 	
 	[DllImport("__Internal")]
 	private static extern void _SetSDKDidUnloadDelegate(NGSDKDidUnloadDelegate callback);
+
+	[DllImport("__Internal")]
+	private static extern void _SetSDKDidReceiveInGameMenuCodeDelegate(NGSDKDidReceiveInGameMenuCodeDelegate callback);
 	#endif
 	
 	#if UNITY_IPHONE
 	delegate void NGSDKDidLoadDelegate();
 	[MonoPInvokeCallback(typeof(NGSDKDidLoadDelegate))]
 	public static void _NGSDKDidLoadCallback () {
-		// Write codes performed when the NNGSDK is loaded.
+		GLinkDelegate._callSdkOpened();
 	}
 	
 	delegate void NGSDKDidUnloadDelegate();
 	[MonoPInvokeCallback(typeof(NGSDKDidUnloadDelegate))]
 	public static void _NGSDKDidUnloadCallback () {
-		// Write codes performed when the NNGSDK is unloaded.
+		GLinkDelegate._callSdkClosed();
+	}
+
+	delegate void NGSDKDidReceiveInGameMenuCodeDelegate(string inGameMenuCode);
+	[MonoPInvokeCallback(typeof(NGSDKDidReceiveInGameMenuCodeDelegate))]
+	public static void _NGSDKDidReceiveInGameMenuCodeDelegate(string inGameMenuCode) {
+		GLinkDelegate._callSdkScheme(inGameMenuCode);
 	}
 	#endif
 	
@@ -55,8 +76,23 @@ public class GLinkiOS : MonoBehaviour, IGLink
 		// Set callbacks.
 		_SetSDKDidLoadDelegate(_NGSDKDidLoadCallback);
 		_SetSDKDidUnloadDelegate(_NGSDKDidUnloadCallback);
+		_SetSDKDidReceiveInGameMenuCodeDelegate(_NGSDKDidReceiveInGameMenuCodeDelegate);
 		#endif
 	}
+
+	public void init(string loungeId, string clientId, string clientSecret)
+    {
+        #if UNITY_IPHONE
+        _InitGLink(clientId, clientSecret, loungeId);   
+        #endif
+    }
+
+    public void terminateSdk()
+    {
+		#if UNITY_IPHONE
+	    _TerminateSdk();
+		#endif
+    }
 	
 	public void executeHomeBanner() {
 		#if UNITY_IPHONE 
@@ -69,40 +105,28 @@ public class GLinkiOS : MonoBehaviour, IGLink
 		_ExecuteSorryBanner();
 		#endif
 	}
+    
 
-    public void init(string loungeId, string clientId, string clientSecret)
+    public void executeBoard(int boardId)
     {
-        #if UNITY_IPHONE
-        _InitGLink(clientId, clientSecret, loungeId);   
-        #endif
+		#if UNITY_IPHONE
+	    _ExecuteBoard(boardId);
+		#endif
     }
 
-    public void unloadSdk()
+    public void executeFeed(long feedId)
     {
-#if UNITY_IPHONE
-	    throw new NotImplementedException();
-#endif
-    }
-
-    public void executeArticleList(int articleListId)
-    {
-#if UNITY_IPHONE
-	    throw new NotImplementedException();
-#endif
-    }
-
-    public void executeArticleByFeedId(long feedId)
-    {
-#if UNITY_IPHONE
-	    throw new NotImplementedException();
-#endif
+		#if UNITY_IPHONE
+	    _ExecuteFeed(feedId);
+		#endif
     }
 
     public string getSdkVersion()
     {
-#if UNITY_IPHONE
-	    throw new NotImplementedException();
-#endif
+		#if UNITY_IPHONE
+		return _GetSdkVersion();
+	    #else
 	    return "";
+		#endif
     }
 }

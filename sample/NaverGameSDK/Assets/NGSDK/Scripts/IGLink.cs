@@ -13,14 +13,13 @@ using System.Runtime.InteropServices;
 public interface IGLink
 {
 	void init(string loungeId, string clientId, string clientSecret);
-	void unloadSdk();
+	void terminateSdk();
 	
 	void executeHomeBanner();
 	void executeSorryBanner();
 
-	
-	void executeArticleList(int articleListId);
-	void executeArticleByFeedId(long feedId);
+	void executeBoard(int boardId);
+	void executeFeed(long feedId);
 	
 	string getSdkVersion();
 	

@@ -27,6 +27,12 @@
 // Your lounge ID.
 @property (strong, nonatomic, readonly) NSString *loungeId;
 
+// The version of the SDK.
+@property (strong, nonatomic, readonly) NSString *version;
+
+// Your App Scheme.
+@property (strong, nonatomic) NSString *appScheme;
+
 // The delegate for SDK manager.
 @property (weak, nonatomic) id <NNGSDKDelegate> delegate;
 
@@ -42,6 +48,15 @@
 // Present a notice while your game is not on service.
 - (void)presentSorryViewController;
 
+// Present the list of feeds identified by a predefined board ID which represents a board.
+- (void)presentBoardViewControllerWith:(NSNumber *)boardId;
+
+// Present the feed identified by a feed ID.
+- (void)presentFeedViewControllerWith:(NSNumber *)feedId;
+
+// Dismiss all SDK-related views.
+- (void)dismiss;
+
 @end
 
 
@@ -54,5 +69,8 @@
 
 // The delegate method called when SDK ends.
 - (void)nngSDKDidUnload;
+
+// The delegate method called when a predefined in-game board code is received.
+- (void)nngSDKDidReceiveInGameMenuCode:(NSString *)inGameMenuCode;
 
 @end

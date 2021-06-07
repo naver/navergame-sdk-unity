@@ -68,14 +68,14 @@ public class GLinkAndroid : IGLink {
 		#endif
 	}
 
-	public void executeArticleList(int menuId)
+	public void executeBoard(int boardId)
 	{
 #if UNITY_ANDROID
         glinkClass.CallStatic("startArticleList",currentActivity,menuId);
 #endif
     }
 
-	public void executeArticleByFeedId(long feedId)
+	public void executeFeed(long feedId)
 	{
 #if UNITY_ANDROID
 		glinkClass.CallStatic("startArticle",currentActivity,feedId);
@@ -89,7 +89,7 @@ public class GLinkAndroid : IGLink {
         #endif
     }
 
-	public void unloadSdk()
+	public void terminateSdk()
 	{
 #if UNITY_ANDROID
 		glinkClass.CallStatic("unloadSdk");

@@ -65,7 +65,7 @@ public class GLinkiOS : MonoBehaviour, IGLink
 	delegate void NGSDKDidReceiveInGameMenuCodeDelegate(string inGameMenuCode);
 	[MonoPInvokeCallback(typeof(NGSDKDidReceiveInGameMenuCodeDelegate))]
 	public static void _NGSDKDidReceiveInGameMenuCodeDelegate(string inGameMenuCode) {
-		GLinkDelegate._callSdkScheme(inGameMenuCode);
+		GLinkDelegate._callSdkInGameMenuCode(inGameMenuCode);
 	}
 	#endif
 	

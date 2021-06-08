@@ -27,8 +27,8 @@ public class GLinkAndroid : IGLink {
         public void onSdkDidUnloaded(){
             GLinkDelegate._callSdkClosed();
         }
-        public void onExecuteMenuEvent(string moveTo) {
-            GLinkDelegate._callSdkScheme(moveTo);
+        public void onCallInGameMenuCode(string moveTo) {
+            GLinkDelegate._callSdkInGameMenuCode(moveTo);
         }
 
 	}
@@ -57,28 +57,26 @@ public class GLinkAndroid : IGLink {
 	public void executeHomeBanner() {
 		#if UNITY_ANDROID
 		glinkClass.CallStatic("startHome",currentActivity);
-		// glinkClass.CallStatic("startWebView",currentActivity,"url");
-		#endif
+#endif
 	}
 	
 	public void executeSorryBanner() {
 		#if UNITY_ANDROID
 		glinkClass.CallStatic("startSorry",currentActivity);
-		// glinkClass.CallStatic("startWebView",currentActivity,"url");
-		#endif
+#endif
 	}
 
 	public void executeBoard(int boardId)
 	{
 #if UNITY_ANDROID
-        glinkClass.CallStatic("startArticleList",currentActivity,menuId);
+        glinkClass.CallStatic("startBoard",currentActivity,boardId);
 #endif
     }
 
 	public void executeFeed(long feedId)
 	{
 #if UNITY_ANDROID
-		glinkClass.CallStatic("startArticle",currentActivity,feedId);
+		glinkClass.CallStatic("startFeed",currentActivity,feedId);
 #endif
 	}
 

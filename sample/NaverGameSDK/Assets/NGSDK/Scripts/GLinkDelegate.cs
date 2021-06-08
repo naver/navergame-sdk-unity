@@ -2,11 +2,11 @@ public static class GLinkDelegate
 {
     public delegate void SdkOpenedDelegate();
     public delegate void SdkClosedDelegate();
-    public delegate void SdkCallScheme(string yourSchemeAction);
+    public delegate void SdkCallInGameMenuCode(string InGameMenuCode);
     
     public static event SdkOpenedDelegate sdkOpenedEvent;
     public static event SdkClosedDelegate sdkClosedEvent;
-    public static event SdkCallScheme sdkCallSchemeEvent;
+    public static event SdkCallInGameMenuCode sdkCallInGameMenuCode;
     
     
     public static void _callSdkOpened()
@@ -24,11 +24,11 @@ public static class GLinkDelegate
         }
     }
 
-    public static void _callSdkScheme(string scheme)
+    public static void _callSdkInGameMenuCode(string InGameMenuCode)
     {
-        if (sdkCallSchemeEvent != null)
+        if (sdkCallInGameMenuCode != null)
         {
-            sdkCallSchemeEvent(scheme);
+            sdkCallInGameMenuCode(InGameMenuCode);
         }
     }
     

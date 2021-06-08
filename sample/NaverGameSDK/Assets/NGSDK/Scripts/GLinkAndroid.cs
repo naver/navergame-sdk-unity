@@ -90,7 +90,7 @@ public class GLinkAndroid : IGLink {
 	public void terminateSdk()
 	{
 #if UNITY_ANDROID
-		glinkClass.CallStatic("unloadSdk");
+		glinkClass.CallStatic("finishSdk");
 #endif
 	}
 

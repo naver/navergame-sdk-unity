@@ -45,11 +45,18 @@ public class GLinkAndroid : IGLink {
 
  		#endif
 	}
-	
-	public string getSdkVersion()
+    public string getSdkVersion()
+    {
+#if UNITY_ANDROID
+        return glinkClass.CallStatic<string>("getSdkVersionName");
+#endif
+        return null;
+    }
+
+	public string getCountryCode()
 	{
 #if UNITY_ANDROID
-		return glinkClass.CallStatic<string>("getSdkVersionName");
+		return glinkClass.CallStatic<string>("getCountryCode",currentActivity);
 #endif
 		return null;
 	}
@@ -73,10 +80,10 @@ public class GLinkAndroid : IGLink {
 #endif
     }
 
-	public void executeFeed(long feedId)
+	public void executeFeed(long feedId, bool isTempFeedId)
 	{
 #if UNITY_ANDROID
-		glinkClass.CallStatic("startFeed",currentActivity,feedId);
+		glinkClass.CallStatic("startFeed",currentActivity,feedId,isTempFeedId);
 #endif
 	}
 

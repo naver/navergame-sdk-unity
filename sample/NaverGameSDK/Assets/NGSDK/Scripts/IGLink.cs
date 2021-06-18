@@ -19,9 +19,10 @@ public interface IGLink
 	void executeSorryBanner();
 
 	void executeBoard(int boardId);
-	void executeFeed(long feedId);
+	void executeFeed(long feedId, bool isTempFeedId);
 	
 	string getSdkVersion();
+	string getCountryCode();
 	
 
 }

@@ -34,10 +34,13 @@ public class GLinkiOS : MonoBehaviour, IGLink
 	public static extern void _ExecuteBoard(int boardId);
 
 	[DllImport("__Internal")]
-	public static extern void _ExecuteFeed(long feedId);
+	public static extern void _ExecuteFeed(long feedId, bool isTempFeedId);
 
 	[DllImport("__Internal")]
 	public static extern string _GetSdkVersion();
+
+	[DllImport("__Internal")]
+	public static extern string _GetCountryCode();
 	
 	[DllImport("__Internal")]
 	private static extern void _SetSDKDidLoadDelegate(NGSDKDidLoadDelegate callback);
@@ -70,9 +73,7 @@ public class GLinkiOS : MonoBehaviour, IGLink
 	#endif
 	
 	public GLinkiOS() {
-		#if UNITY_IPHONE
-		_InitGLink(GLinkConfig.NaverLoginClientId, GLinkConfig.NaverLoginClientSecret, GLinkConfig.LoungeId);
-		
+		#if UNITY_IPHONE		
 		// Set callbacks.
 		_SetSDKDidLoadDelegate(_NGSDKDidLoadCallback);
 		_SetSDKDidUnloadDelegate(_NGSDKDidUnloadCallback);
@@ -80,15 +81,13 @@ public class GLinkiOS : MonoBehaviour, IGLink
 		#endif
 	}
 
-	public void init(string loungeId, string clientId, string clientSecret)
-    {
+	public void init(string loungeId, string clientId, string clientSecret) {
         #if UNITY_IPHONE
         _InitGLink(clientId, clientSecret, loungeId);   
         #endif
     }
 
-    public void terminateSdk()
-    {
+    public void terminateSdk() {
 		#if UNITY_IPHONE
 	    _TerminateSdk();
 		#endif
@@ -106,25 +105,29 @@ public class GLinkiOS : MonoBehaviour, IGLink
 		#endif
 	}
     
-
-    public void executeBoard(int boardId)
-    {
+    public void executeBoard(int boardId) {
 		#if UNITY_IPHONE
 	    _ExecuteBoard(boardId);
 		#endif
     }
 
-    public void executeFeed(long feedId)
-    {
+    public void executeFeed(long feedId, bool isTempFeedId) {
 		#if UNITY_IPHONE
-	    _ExecuteFeed(feedId);
+	    _ExecuteFeed(feedId, isTempFeedId);
 		#endif
     }
 
-    public string getSdkVersion()
-    {
+    public string getSdkVersion() {
 		#if UNITY_IPHONE
 		return _GetSdkVersion();
+	    #else
+	    return "";
+		#endif
+    }
+
+    public string getCountryCode() {
+		#if UNITY_IPHONE
+		return _GetCountryCode();
 	    #else
 	    return "";
 		#endif

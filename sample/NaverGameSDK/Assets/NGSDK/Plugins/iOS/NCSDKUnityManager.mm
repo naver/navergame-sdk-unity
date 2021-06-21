@@ -47,9 +47,9 @@ typedef void (*NGSDKDidReceiveInGameMenuCodeDelegate)(const char *inGameMenuCode
 }
 
 
-// The version of the SDK.
-- (NSString *)getSdkVersion {
-    return NNGSDKManager.shared.version;
+// Dismiss all SDK-related views.
+- (void)terminateSdk {
+    [NNGSDKManager.shared dismiss];
 }
 
 
@@ -75,15 +75,21 @@ typedef void (*NGSDKDidReceiveInGameMenuCodeDelegate)(const char *inGameMenuCode
 
 
 // Present the feed identified by a feed ID.
-- (void)executeFeed:(long)feedId {
+- (void)executeFeed:(long)feedId isTempFeedId:(BOOL)isTempFeedId {
     [self setGLRootViewController];
-    [NNGSDKManager.shared presentFeedViewControllerWith:@(feedId)];
+    [NNGSDKManager.shared presentFeedViewControllerWith:@(feedId) scheduled:isTempFeedId];
 }
 
 
-// Dismiss all SDK-related views.
-- (void)terminateSdk {
-    [NNGSDKManager.shared dismiss];
+// The version of the SDK.
+- (NSString *)getSdkVersion {
+    return NNGSDKManager.shared.version;
+}
+
+
+// The ISO_3166-1 alpha-2 country code of each device.
+- (NSString *)getCountryCode {
+    return NNGSDKManager.shared.countryCode;
 }
 
 
@@ -140,13 +146,11 @@ extern "C" {
     GLinkViewController *vc = [[GLinkViewController alloc] init];
 
     void _InitGLink(const char* clientId, const char* clientSecret, const char* loungeId) {
-        [vc setClientId:NNGSDKCreateNSString(clientId)
-           clientSecret:NNGSDKCreateNSString(clientSecret)
-               loungeId:NNGSDKCreateNSString(loungeId)];
+        [vc setClientId:NNGSDKCreateNSString(clientId) clientSecret:NNGSDKCreateNSString(clientSecret) loungeId:NNGSDKCreateNSString(loungeId)];
     }
 
-    const char* _GetSdkVersion() {
-        return NNGSDKCreateNSStringToChar([vc getSdkVersion].UTF8String);
+    void _TerminateSdk() {
+        [vc terminateSdk];
     }
 
     void _ExecuteHomeBanner() {
@@ -161,12 +165,16 @@ extern "C" {
         [vc executeBoard:boardId];
     }
 
-    void _ExecuteFeed(long feedId) {
-        [vc executeFeed:feedId];
+    void _ExecuteFeed(long feedId, bool isTempFeedId) {
+        [vc executeFeed:feedId isTempFeedId:isTempFeedId];
     }
 
-    void _TerminateSdk() {
-        [vc terminateSdk];
+    const char* _GetSdkVersion() {
+        return NNGSDKCreateNSStringToChar([vc getSdkVersion].UTF8String);
+    }
+
+    const char* _GetCountryCode() {
+        return NNGSDKCreateNSStringToChar([vc getCountryCode].UTF8String);
     }
 
     void _SetSDKDidLoadDelegate(NGSDKDidLoadDelegate ngSDKDidLoadDelegate) {

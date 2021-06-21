@@ -27,6 +27,9 @@
 // Your lounge ID.
 @property (strong, nonatomic, readonly) NSString *loungeId;
 
+// The ISO_3166-1 alpha-2 country code of each device.
+@property (strong, nonatomic, readonly) NSString *countryCode;
+
 // The version of the SDK.
 @property (strong, nonatomic, readonly) NSString *version;
 
@@ -52,7 +55,7 @@
 - (void)presentBoardViewControllerWith:(NSNumber *)boardId;
 
 // Present the feed identified by a feed ID.
-- (void)presentFeedViewControllerWith:(NSNumber *)feedId;
+- (void)presentFeedViewControllerWith:(NSNumber *)feedId scheduled:(BOOL)scheduled;
 
 // Dismiss all SDK-related views.
 - (void)dismiss;

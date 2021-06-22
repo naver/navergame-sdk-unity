@@ -18,12 +18,19 @@ public class SampleBehaviour : MonoBehaviour {
     void Start()
     {
         GLink.sharedInstance().init(LoungeId, NaverLoginClientId, NaverLoginClientSecret);
+        GLinkDelegate.sdkCallInGameMenuCode += code =>
+        {
+	        GLink.sharedInstance().terminateSdk();
+	        Debug.Log("CallInGameMenuCode : " + code);	
+        };
     }
 
     public void OnClickGlinkButton () {
 		Debug.Log("click!");
 		GLink.sharedInstance().executeHomeBanner();
-	}
+		
+    }
+    
 }
 
 

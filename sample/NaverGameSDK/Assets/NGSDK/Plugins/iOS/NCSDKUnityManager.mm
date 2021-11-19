@@ -95,16 +95,16 @@ typedef void (*NGSDKDidReceiveInGameMenuCodeDelegate)(const char *inGameMenuCode
 
 #pragma mark NNGSDKDelegate
 
-// Implementation for the delegate method -nngSDKViewDidLoad.
-- (void)nngSDKViewDidLoad {
+// Implementation for the delegate method -nngSDKDidLoad.
+- (void)nngSDKDidLoad {
     if (self.ngSDKDidLoadDelegate) {
         self.ngSDKDidLoadDelegate();
     }
 }
 
 
-// Implementation for the delegate method -nngSDKViewDidUnload.
-- (void)nngSDKViewDidUnload {
+// Implementation for the delegate method -nngSDKDidUnload.
+- (void)nngSDKDidUnload {
     if (self.ngSDKDidUnloadDelegate) {
         self.ngSDKDidUnloadDelegate();
     }

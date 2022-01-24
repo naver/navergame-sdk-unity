@@ -453,6 +453,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: SampleButton
       objectReference: {fileID: 0}
+    - target: {fileID: 6813622990686390987, guid: cb699137de702404eb8087a45512856c,
+        type: 3}
+      propertyPath: LoungeId
+      value: naver_game_4developer
+      objectReference: {fileID: 0}
+    - target: {fileID: 6813622990686390987, guid: cb699137de702404eb8087a45512856c,
+        type: 3}
+      propertyPath: NaverLoginClientId
+      value: UKvNABLDsyEJusJGsXL2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6813622990686390987, guid: cb699137de702404eb8087a45512856c,
+        type: 3}
+      propertyPath: NaverLoginClientSecret
+      value: rK4suc_Qd0
+      objectReference: {fileID: 0}
     - target: {fileID: 7937975537659646916, guid: cb699137de702404eb8087a45512856c,
         type: 3}
       propertyPath: m_Pivot.x

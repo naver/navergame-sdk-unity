@@ -102,7 +102,7 @@ public class GLinkAndroid : IGLink {
 	public void setGameId(string gameId)
 	{
 #if UNITY_ANDROID
-		glinkClass.CallStatic("putGameId",gameId);
+		glinkClass.CallStatic("putGameId",currentActivity,gameId);
 #endif
 	}
 

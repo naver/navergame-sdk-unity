@@ -27,4 +27,6 @@ public interface IGLink
 
 	void setCanWriteFeedByScreenshot(bool enabled);
 	void setGameId(string gameId);
+
+	void naverLogout();
 }

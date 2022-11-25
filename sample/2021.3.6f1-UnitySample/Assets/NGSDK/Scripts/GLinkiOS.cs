@@ -50,6 +50,9 @@ public class GLinkiOS : MonoBehaviour, IGLink
 
 	[DllImport("__Internal")]
 	public static extern void _TerminateSdk();
+
+	[DllImport("__Internal")]
+	public static extern void _NaverLogout();
 	
 	[DllImport("__Internal")]
 	private static extern void _SetSDKDidLoadDelegate(NGSDKDidLoadDelegate callback);
@@ -158,5 +161,11 @@ public class GLinkiOS : MonoBehaviour, IGLink
 		#if UNITY_IPHONE
 	    _TerminateSdk();
 		#endif
+    }
+    
+    public void naverLogout() {
+		#if UNITY_IPHONE
+	    _NaverLogout();
+		#endif	
     }
 }

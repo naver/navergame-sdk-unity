@@ -114,6 +114,10 @@ typedef void (*NGSDKDidReceiveInGameMenuCodeDelegate)(const char *inGameMenuCode
     [NNGSDKManager.shared dismiss];
 }
 
+- (void)naverLogout {
+    [NNGSDKManager.shared logout];
+}
+
 
 #pragma mark NNGSDKDelegate
 
@@ -209,6 +213,10 @@ extern "C" {
 
     void _TerminateSdk() {
         [vc terminateSdk];
+    }
+
+    void _NaverLogout() {
+        [vc naverLogout];
     }
 
     void _SetSDKDidLoadDelegate(NGSDKDidLoadDelegate ngSDKDidLoadDelegate) {

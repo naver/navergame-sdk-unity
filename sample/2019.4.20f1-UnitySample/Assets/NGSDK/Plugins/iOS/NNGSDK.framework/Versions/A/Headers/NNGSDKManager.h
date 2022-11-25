@@ -126,6 +126,11 @@
 - (void)dismiss;
 
 /**
+ * Logout
+ */
+- (void)logout;
+
+/**
  * Handle callback urls for the Naver login.
  *
  * @param url   Callback URL from Naver login service.

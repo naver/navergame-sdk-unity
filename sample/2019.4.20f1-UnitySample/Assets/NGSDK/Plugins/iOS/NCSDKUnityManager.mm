@@ -10,6 +10,7 @@
 
 
 #import <UIKit/UIKit.h>
+#import "AppDelegateListener.h"
 #import "UnityAppController.h"
 #import <NNGSDK/NNGSDKManager.h>
 
@@ -19,7 +20,7 @@ typedef void (*NGSDKDidUnloadDelegate)();
 typedef void (*NGSDKDidReceiveInGameMenuCodeDelegate)(const char *inGameMenuCode);
 
 
-@interface GLinkViewController : UIViewController <NNGSDKDelegate>
+@interface GLinkViewController : UIViewController <NNGSDKDelegate, AppDelegateListener>
 
 @property (nonatomic, strong) UIViewController *mainViewcontroller;
 
@@ -55,9 +56,14 @@ typedef void (*NGSDKDidReceiveInGameMenuCodeDelegate)(const char *inGameMenuCode
 // Set client ID, client secret, and lounge ID for SDK
 - (void)setClientId:(NSString *)clientId clientSecret:(NSString *)cs loungeId:(NSString *)loungeId {
     [NNGSDKManager.shared setClientId:clientId clientSecret:cs loungeId:loungeId];
+    UnityRegisterAppDelegateListener(self);
     [self setGLRootViewController];
 }
 
+- (void)onOpenURL:(NSNotification *)notification {
+    NSURL *url = notification.userInfo[@"url"];
+    [NNGSDKManager.shared handleCallbackUrl: url];
+}
 
 - (void)setCanWriteFeedByScreenshot:(BOOL)enabled {
     NNGSDKManager.shared.canWriteFeedByScreenshot = enabled;
@@ -106,6 +112,10 @@ typedef void (*NGSDKDidReceiveInGameMenuCodeDelegate)(const char *inGameMenuCode
 // Dismiss all SDK-related views.
 - (void)terminateSdk {
     [NNGSDKManager.shared dismiss];
+}
+
+- (void)naverLogout {
+    [NNGSDKManager.shared logout];
 }
 
 
@@ -203,6 +213,10 @@ extern "C" {
 
     void _TerminateSdk() {
         [vc terminateSdk];
+    }
+
+    void _NaverLogout() {
+        [vc naverLogout];
     }
 
     void _SetSDKDidLoadDelegate(NGSDKDidLoadDelegate ngSDKDidLoadDelegate) {

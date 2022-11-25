@@ -120,4 +120,11 @@ public class GLinkAndroid : IGLink {
 #endif
 	}
 
+	public void naverLogout()
+	{
+#if UNITY_ANDROID
+		glinkClass.CallStatic("logout",currentActivity);
+#endif	
+	}
+
 }

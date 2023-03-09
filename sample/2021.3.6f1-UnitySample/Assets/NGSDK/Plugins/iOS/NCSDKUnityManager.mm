@@ -75,6 +75,21 @@ typedef void (*NGSDKDidReceiveInGameMenuCodeDelegate)(const char *inGameMenuCode
 }
 
 
+- (void)setAppName:(NSString *)appName {
+    NNGSDKManager.shared.appName = appName;
+}
+
+
+- (void)setAppScheme:(NSString *)appScheme {
+    NNGSDKManager.shared.appScheme = appScheme;
+}
+
+
+(NSString *)getAuthSettingDescription {
+    return NNGSDKManager.shared.authSettingDescription;
+}
+
+
 // Present the banner list.
 - (void)executeHomeBanner {
     [self setGLRootViewController];
@@ -189,6 +204,18 @@ extern "C" {
 
     void _SetGameId(const char* gameId) {
         [vc setGameId:NNGSDKCreateNSString(gameId)];
+    }
+
+    void _SetAppName(const char* appName) {
+        [vc setAppName:NNGSDKCreateNSString(appName)];
+    }
+
+    void _SetAppScheme(const char* appScheme) {
+        [vc setAppScheme:NNGSDKCreateNSString(appScheme)];
+    }
+
+    const char* _GetAuthSettingDescription() {
+        return NNGSDKCreateNSStringToChar([vc getAuthSettingDescription].UTF8String);
     }
 
     void _ExecuteHomeBanner() {

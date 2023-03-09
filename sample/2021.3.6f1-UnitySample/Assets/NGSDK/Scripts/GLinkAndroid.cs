@@ -126,5 +126,15 @@ public class GLinkAndroid : IGLink {
 		glinkClass.CallStatic("logout",currentActivity);
 #endif	
 	}
+	
+	public void setAppName(string appName) {
+	}
+
+	public void setAppScheme(string appScheme) {
+	}
+
+	public string getAuthSettingDescription() {
+		return "";
+	}
 
 }

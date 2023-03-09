@@ -21,10 +21,16 @@ public interface IGLink
 	void executeBoard(int boardId);
 	void executeFeed(long feedId, bool isTempFeedId);
 	void executeFeedWriting(int boardId=0, string title="", string text="", string imageFilePath="");
-
+	
 	string getSdkVersion();
 	string getCountryCode();
 
 	void setCanWriteFeedByScreenshot(bool enabled);
 	void setGameId(string gameId);
+
+	void naverLogout();
+
+	void setAppName(string appName);
+	void setAppScheme(string appScheme);
+	string getAuthSettingDescription();
 }

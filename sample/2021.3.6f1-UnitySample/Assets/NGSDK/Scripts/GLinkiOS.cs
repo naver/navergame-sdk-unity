@@ -32,6 +32,15 @@ public class GLinkiOS : MonoBehaviour, IGLink
 
 	[DllImport("__Internal")]
 	public static extern void _SetGameId(string gameId);
+
+	[DllImport("__Internal")]
+	public static extern void _SetAppName(string appName);
+
+	[DllImport("__Internal")]
+	public static extern void _SetAppScheme(string appScheme);
+
+	[DllImport("__Internal")]
+	public static extern string _GetAuthSettingDescription();
 	
 	[DllImport("__Internal")]
 	public static extern void _ExecuteHomeBanner();
@@ -125,6 +134,26 @@ public class GLinkiOS : MonoBehaviour, IGLink
     	#if UNITY_IPHONE
 		_SetGameId(gameId);
 	    #endif
+    }
+
+    public void setAppName(string appName) {
+    	#if UNITY_IPHONE
+    	_SetAppName(appName);
+	    #endif
+    }
+
+    public void setAppScheme(string appScheme) {
+    	#if UNITY_IPHONE
+		_SetAppScheme(appScheme);
+	    #endif
+    }
+
+    public string getAuthSettingDescription() {
+		#if UNITY_IPHONE
+		return _GetAuthSettingDescription();
+	    #else
+	    return "";
+		#endif
     }
 	
 	public void executeHomeBanner() {

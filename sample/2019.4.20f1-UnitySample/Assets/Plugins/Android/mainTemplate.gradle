@@ -6,7 +6,7 @@ apply plugin: 'com.android.library'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
         implementation "com.naver.nid:naveridlogin-android-sdk:4.2.6" // naveridlogin
-        implementation "org.jetbrains.kotlin:kotlin-stdlib:1.4.20"      // Kotlin
+        implementation "org.jetbrains.kotlin:kotlin-stdlib:1.7.20"      // Kotlin
         implementation "androidx.viewpager2:viewpager2:1.0.0"           // Viewpager2
         implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"   //swiperefreshlayout
         implementation "com.github.bumptech.glide:glide:3.7.0"          // Glide

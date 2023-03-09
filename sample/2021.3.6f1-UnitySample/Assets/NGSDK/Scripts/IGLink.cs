@@ -29,4 +29,8 @@ public interface IGLink
 	void setGameId(string gameId);
 
 	void naverLogout();
+
+	void setAppName(string appName);
+	void setAppScheme(string appScheme);
+	string getAuthSettingDescription();
 }

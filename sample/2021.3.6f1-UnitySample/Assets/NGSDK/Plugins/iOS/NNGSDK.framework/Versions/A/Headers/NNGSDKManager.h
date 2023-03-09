@@ -46,9 +46,14 @@
 @property (strong, nonatomic, readonly) NSString *version;
 
 /**
- * Your App Scheme. It is set automatically.
+ * Your App Name. It is initialized automatically by using CFBundleName.
  */
-@property (strong, nonatomic) NSString *appScheme;
+@property (nonatomic) NSString *appName;
+
+/**
+ * Your App Scheme. It is initialized automatically.
+ */
+@property (nonatomic) NSString *appScheme;
 
 /**
  * The flag which determines whether the shortcut to write feed is presented after capturing screen or not. YES as default.
@@ -60,6 +65,17 @@
  */
 @property (weak, nonatomic) id <NNGSDKDelegate> delegate;
 
+/**
+ * The description of settings for the authorization which has the following format:
+ *
+ * clientId: ACTUAL_CLIENT_ID (CLIENT_ID_CACHE)
+ * clientSecret: ACTUAL_CLIENT_SECRET (CLIENT_SECRET_CACHE)
+ * appName: ACTUAL_APP_NAME (APP_NAME_CACHE)
+ * appScheme: ACTUAL_APP_SCHEME (APP_SCHEME_CACHE)
+ *
+ * Each actual value, cache, and the value on the NAVER ID Login website have to be same.
+ */
+@property (nonatomic, readonly) NSString *authSettingDescription;
 
 /**
  * Set client ID, client secret, and lounge ID for SDK.

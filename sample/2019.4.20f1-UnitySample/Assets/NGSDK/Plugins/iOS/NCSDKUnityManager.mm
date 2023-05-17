@@ -85,7 +85,7 @@ typedef void (*NGSDKDidReceiveInGameMenuCodeDelegate)(const char *inGameMenuCode
 }
 
 
-(NSString *)getAuthSettingDescription {
+- (NSString *)getAuthSettingDescription {
     return NNGSDKManager.shared.authSettingDescription;
 }
 

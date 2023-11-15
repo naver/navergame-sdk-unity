@@ -30,7 +30,7 @@ dependencies {
      */
     implementation fileTree(dir: 'libs', include: ['navergame-sdk-gradle-*.aar','glideadapter-*.jar','nid-adapter-*.jar']) // Navergame SDK
 
-    implementation("com.naver.nid:naveridlogin-android-sdk:4.2.6") // for NaverLogin 4.2.6
+    implementation("com.navercorp.nid:oauth:5.8.0") // for NaverLogin 5.8.0
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.7.20"      // Kotlin
     implementation "androidx.viewpager2:viewpager2:1.0.0"           // Viewpager2

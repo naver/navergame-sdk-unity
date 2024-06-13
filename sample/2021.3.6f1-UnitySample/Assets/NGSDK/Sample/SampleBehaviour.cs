@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using System.Collections;
 using System.Text.RegularExpressions;
@@ -27,8 +27,7 @@ public class SampleBehaviour : MonoBehaviour {
 
     public void OnClickGlinkButton () {
 		Debug.Log("click!");
-		GLink.sharedInstance().executeHomeBanner();
-		
+		GLink.sharedInstance().executeBoard(1);
     }
     
 }

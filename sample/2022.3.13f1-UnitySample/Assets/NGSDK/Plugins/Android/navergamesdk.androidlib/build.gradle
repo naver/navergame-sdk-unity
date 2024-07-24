@@ -1,0 +1,42 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 31
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 31
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    
+    /**
+     * 네이버 게임 SDK와 SDK에서 사용되는 라이브러리들.
+     */
+    compileOnly fileTree(dir: 'libs', include: ['navergame-sdk-gradle-*.aar']) // Navergame SDK
+    implementation fileTree(dir: 'libs', include: ['glideadapter-*.jar','nid-adapter-*.jar']) // Navergame SDK
+
+    implementation("com.navercorp.nid:oauth:5.9.1") // for NaverLogin 5.8.0
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.7.20"      // Kotlin
+    implementation "androidx.viewpager2:viewpager2:1.0.0"           // Viewpager2
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"   //swiperefreshlayout
+    implementation "com.github.bumptech.glide:glide:3.7.0"          // Glide
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"          // Retrofit2
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+}

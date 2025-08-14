@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/NGSDK/Sample/SampleScene.unity
     guid: 49082326af39d4c92901197dbbd2f4c6
   m_configObjects: {}

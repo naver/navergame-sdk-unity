@@ -1,0 +1,8 @@
+/Users/user/workspace/android/nng-sdk-unity-public/sample/6000.2.8f1-UnitySample/.utmp/RelWithDebInfo/2d4o1653/arm64-v8a/CMakeFiles/edit_cache.dir
+/Users/user/workspace/android/nng-sdk-unity-public/sample/6000.2.8f1-UnitySample/.utmp/RelWithDebInfo/2d4o1653/arm64-v8a/CMakeFiles/rebuild_cache.dir
+/Users/user/workspace/android/nng-sdk-unity-public/sample/6000.2.8f1-UnitySample/.utmp/RelWithDebInfo/2d4o1653/arm64-v8a/GameActivity/CMakeFiles/game.dir
+/Users/user/workspace/android/nng-sdk-unity-public/sample/6000.2.8f1-UnitySample/.utmp/RelWithDebInfo/2d4o1653/arm64-v8a/GameActivity/CMakeFiles/edit_cache.dir
+/Users/user/workspace/android/nng-sdk-unity-public/sample/6000.2.8f1-UnitySample/.utmp/RelWithDebInfo/2d4o1653/arm64-v8a/GameActivity/CMakeFiles/rebuild_cache.dir
+/Users/user/workspace/android/nng-sdk-unity-public/sample/6000.2.8f1-UnitySample/.utmp/RelWithDebInfo/2d4o1653/arm64-v8a/FramePacing/CMakeFiles/swappywrapper.dir
+/Users/user/workspace/android/nng-sdk-unity-public/sample/6000.2.8f1-UnitySample/.utmp/RelWithDebInfo/2d4o1653/arm64-v8a/FramePacing/CMakeFiles/edit_cache.dir
+/Users/user/workspace/android/nng-sdk-unity-public/sample/6000.2.8f1-UnitySample/.utmp/RelWithDebInfo/2d4o1653/arm64-v8a/FramePacing/CMakeFiles/rebuild_cache.dir

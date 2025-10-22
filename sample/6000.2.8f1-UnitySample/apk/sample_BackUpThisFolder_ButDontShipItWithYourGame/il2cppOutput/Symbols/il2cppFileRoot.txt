@@ -1,0 +1,1 @@
+/Users/user/workspace/android/nng-sdk-unity-public/sample/6000.2.8f1-UnitySample/Library/Bee/artifacts/Android/il2cppOutput/cpp

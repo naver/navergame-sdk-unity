@@ -1,11 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
+    namespace = "com.navercorp.android.navergamesdk"
     compileSdkVersion 31
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 31
+        targetSdkVersion 35
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"

@@ -1,0 +1,1 @@
+/Users/user/workspace/android/nng-sdk-unity-public/sample/6000.2.8f1-UnitySample/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/2d4o1653/obj/arm64-v8a

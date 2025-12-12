@@ -22,6 +22,8 @@ typedef void (*NGSDKDidReceiveInGameMenuCodeDelegate)(const char *inGameMenuCode
 
 @interface GLinkViewController : UIViewController <NNGSDKDelegate, AppDelegateListener>
 
+@property (class, readonly, nonatomic, assign) GLinkViewController* shared;
+
 @property (nonatomic, strong) UIViewController *mainViewcontroller;
 
 @property (nonatomic, assign) NGSDKDidLoadDelegate ngSDKDidLoadDelegate;
@@ -32,6 +34,15 @@ typedef void (*NGSDKDidReceiveInGameMenuCodeDelegate)(const char *inGameMenuCode
 
 
 @implementation GLinkViewController
+
++ (GLinkViewController *)shared {
+    static id instance;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = [[self alloc] init];
+    });
+    return instance;
+}
 
 // The version of the SDK.
 - (NSString *)getSdkVersion {
@@ -184,78 +195,76 @@ extern "C" {
         return res;
     }
 
-    GLinkViewController *vc = [[GLinkViewController alloc] init];
-
     void _InitGLink(const char* clientId, const char* clientSecret, const char* loungeId) {
-        [vc setClientId:NNGSDKCreateNSString(clientId) clientSecret:NNGSDKCreateNSString(clientSecret) loungeId:NNGSDKCreateNSString(loungeId)];
+        [[GLinkViewController shared] setClientId:NNGSDKCreateNSString(clientId) clientSecret:NNGSDKCreateNSString(clientSecret) loungeId:NNGSDKCreateNSString(loungeId)];
     }
 
     const char* _GetSdkVersion() {
-        return NNGSDKCreateNSStringToChar([vc getSdkVersion].UTF8String);
+        return NNGSDKCreateNSStringToChar([[GLinkViewController shared] getSdkVersion].UTF8String);
     }
 
     const char* _GetCountryCode() {
-        return NNGSDKCreateNSStringToChar([vc getCountryCode].UTF8String);
+        return NNGSDKCreateNSStringToChar([[GLinkViewController shared] getCountryCode].UTF8String);
     }
 
     void _SetCanWriteFeedByScreenshot(bool enabled) {
-        [vc setCanWriteFeedByScreenshot:enabled];
+        [[GLinkViewController shared] setCanWriteFeedByScreenshot:enabled];
     }
 
     void _SetGameId(const char* gameId) {
-        [vc setGameId:NNGSDKCreateNSString(gameId)];
+        [[GLinkViewController shared] setGameId:NNGSDKCreateNSString(gameId)];
     }
 
     void _SetAppName(const char* appName) {
-        [vc setAppName:NNGSDKCreateNSString(appName)];
+        [[GLinkViewController shared] setAppName:NNGSDKCreateNSString(appName)];
     }
 
     void _SetAppScheme(const char* appScheme) {
-        [vc setAppScheme:NNGSDKCreateNSString(appScheme)];
+        [[GLinkViewController shared] setAppScheme:NNGSDKCreateNSString(appScheme)];
     }
 
     const char* _GetAuthSettingDescription() {
-        return NNGSDKCreateNSStringToChar([vc getAuthSettingDescription].UTF8String);
+        return NNGSDKCreateNSStringToChar([[GLinkViewController shared] getAuthSettingDescription].UTF8String);
     }
 
     void _ExecuteHomeBanner() {
-        [vc executeHomeBanner];
+        [[GLinkViewController shared] executeHomeBanner];
     }
 
     void _ExecuteSorryBanner() {
-        [vc executeSorryBanner];
+        [[GLinkViewController shared] executeSorryBanner];
     }
 
     void _ExecuteBoard(int boardId) {
-        [vc executeBoard:boardId];
+        [[GLinkViewController shared] executeBoard:boardId];
     }
 
     void _ExecuteFeed(long feedId, bool isTempFeedId) {
-        [vc executeFeed:feedId isTempFeedId:isTempFeedId];
+        [[GLinkViewController shared] executeFeed:feedId isTempFeedId:isTempFeedId];
     }
 
     void _ExecuteFeedWriting(int boardId, const char* title, const char* text, const char* imageFilePath) {
-        [vc executeFeedWriting:boardId title:NNGSDKCreateNSString(title) text:NNGSDKCreateNSString(text) imageFilePath:NNGSDKCreateNSString(imageFilePath)];
+        [[GLinkViewController shared] executeFeedWriting:boardId title:NNGSDKCreateNSString(title) text:NNGSDKCreateNSString(text) imageFilePath:NNGSDKCreateNSString(imageFilePath)];
     }
 
     void _TerminateSdk() {
-        [vc terminateSdk];
+        [[GLinkViewController shared] terminateSdk];
     }
 
     void _NaverLogout() {
-        [vc naverLogout];
+        [[GLinkViewController shared] naverLogout];
     }
 
     void _SetSDKDidLoadDelegate(NGSDKDidLoadDelegate ngSDKDidLoadDelegate) {
-        vc.ngSDKDidLoadDelegate = ngSDKDidLoadDelegate;
+        [GLinkViewController shared].ngSDKDidLoadDelegate = ngSDKDidLoadDelegate;
     }
 
     void _SetSDKDidUnloadDelegate(NGSDKDidUnloadDelegate ngSDKDidUnloadDelegate) {
-        vc.ngSDKDidUnloadDelegate = ngSDKDidUnloadDelegate;
+        [GLinkViewController shared].ngSDKDidUnloadDelegate = ngSDKDidUnloadDelegate;
     }
 
     void _SetSDKDidReceiveInGameMenuCodeDelegate(NGSDKDidReceiveInGameMenuCodeDelegate ngSDKDidReceiveInGameMenuCodeDelegate) {
-        vc.ngSDKDidReceiveInGameMenuCodeDelegate = ngSDKDidReceiveInGameMenuCodeDelegate;
+        [GLinkViewController shared].ngSDKDidReceiveInGameMenuCodeDelegate = ngSDKDidReceiveInGameMenuCodeDelegate;
     }
 
 }

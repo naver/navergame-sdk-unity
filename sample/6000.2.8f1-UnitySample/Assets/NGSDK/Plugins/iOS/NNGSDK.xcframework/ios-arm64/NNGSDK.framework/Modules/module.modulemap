@@ -1,0 +1,6 @@
+framework module NNGSDK {
+  umbrella header "NNGSDK.h"
+  export *
+
+  module * { export * }
+}

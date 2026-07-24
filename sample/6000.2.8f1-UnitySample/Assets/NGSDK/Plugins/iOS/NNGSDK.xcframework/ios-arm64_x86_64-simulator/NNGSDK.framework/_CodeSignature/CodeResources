@@ -6,7 +6,11 @@
 	<dict>
 		<key>Assets.car</key>
 		<data>
-		rqxWVideZEpGE8Ls3U61MmIplL4=
+		fqGIjZlwllKrUgF8npPIXk8nzxk=
+		</data>
+		<key>Headers/NNGSDK.h</key>
+		<data>
+		Xf8S/FC56nDYHQXuGHhNzZsvPKI=
 		</data>
 		<key>Headers/NNGSDKManager.h</key>
 		<data>
@@ -14,7 +18,11 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		TErFLFf3Ie3qnHWvuoV7aQhCr2A=
+		MNbx6vt9hJY7HJ7KWHXv24kFR2g=
+		</data>
+		<key>Modules/module.modulemap</key>
+		<data>
+		GDU5BXJcuu6bHLBekekhp7TS/hE=
 		</data>
 		<key>PrivacyInfo.xcprivacy</key>
 		<data>
@@ -49,7 +57,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			3lQAE0YnNqqdD+bw/lb+4PuLsnDU5VRE1VBgkxMVwM0=
+			Tg7jqMFFe7RphSXZTGQvWesnyx1bA/xQDW2D9NXmUl0=
+			</data>
+		</dict>
+		<key>Headers/NNGSDK.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			GfOXnI/rFwsqproNOBENcWzyzGsN3zq0Tppbu2wyJGU=
 			</data>
 		</dict>
 		<key>Headers/NNGSDKManager.h</key>
@@ -57,6 +72,13 @@
 			<key>hash2</key>
 			<data>
 			YVWS+Aqw3iRd9vIQjyqb9xOY76BJgthWDQz1nz3KeiE=
+			</data>
+		</dict>
+		<key>Modules/module.modulemap</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			kzXFAI8tawwaxDvM2HYAJOhj720Ul4wQBD1dMLerI+o=
 			</data>
 		</dict>
 		<key>PrivacyInfo.xcprivacy</key>
